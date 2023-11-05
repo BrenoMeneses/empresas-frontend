@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import './app.css'
+import Home from './pages/home'
+import Lista from './pages/lista'
+import Edit from './pages/edit'
+import Navbar from './components/navBar'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/lista' element={<Lista />} />
+        <Route path='/edicao/:id' element={<Edit />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
+
+
+// echo "# empresas" >> README.md
+// git init
+// git add README.md
+// git commit -m "first commit"
+// git branch -M main
+// git remote add origin https://github.com/BrenoMeneses/empresas.git
+// git push -u origin main
