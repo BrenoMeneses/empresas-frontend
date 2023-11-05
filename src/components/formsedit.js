@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import InputMask from 'react-input-mask'
+import { cnpj } from 'cpf-cnpj-validator'
 
 const Formedit = () => {
 
@@ -14,7 +15,8 @@ const Formedit = () => {
         register,
         handleSubmit,
         formState:{errors},
-        setValue
+        setValue,
+        setError
     } = useForm({
         defaultValues: cliente
     })
@@ -43,18 +45,25 @@ const Formedit = () => {
     }
 
     function onSubmitConfirm(data, id){
-        console.log(data)
-        fetch(`http://localhost:8080/api/${id}`, {
-            method: 'PUT',
-            headers:  {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        }).catch((error) => {
-          console.error('Erro na solicitação:', error)
-        })
 
-        window.location.href = `/lista`
+        if (cnpj.isValid(data.cnpj.replace(/[^\d]+/g, ''))) {
+            console.log(data)
+            fetch(`http://localhost:8080/api/${id}`, {
+                method: 'PUT',
+                headers:  {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            }).catch((error) => {
+              console.error('Erro na solicitação:', error)
+            })
+    
+            window.location.href = `/lista`
+        }else{
+            setError("cnpj", {type: 'manual', message: "cnpj inválido"})
+        }
+
+
     }
 
     useEffect(() => {
@@ -98,9 +107,9 @@ const Formedit = () => {
                             maskChar="_"
                             className={errors?.cnpj && "input-error"}
                             type="text" id="cnpj"
-                            {...register("cnpj", {required: true})}
+                            {...register("cnpj", {required: "campo não preenchido"})}
                         />
-                        {errors?.cnpj?.type === "required" && (<p>campo não preenchido</p>)}
+                        {errors.cnpj && (<p>{cnpj.errors.message}</p>)}
                     </label>
                     <label htmlFor="cep">cep
                         <input

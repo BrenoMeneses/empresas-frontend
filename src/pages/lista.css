@@ -80,6 +80,7 @@ tbody tr:nth-child(odd) {
 
 .search-container {
     position: relative;
+    display: flex;
     width: 400px;
 }
 
@@ -98,4 +99,12 @@ tbody tr:nth-child(odd) {
     right: 10px;
     transform: translateY(-50%);
     color: #777;
+}
+
+.btnAtt{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
 }

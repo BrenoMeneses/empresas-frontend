@@ -3,6 +3,8 @@ import './lista.css'
 
 const Lista = () => {
 
+    
+
     const [array, setArray] = useState([])
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -49,10 +51,11 @@ const Lista = () => {
                 <input
                     className='search-input'
                     type="text"
-                    placeholder="digite o nome da empresa para pesquisar"
+                    placeholder="digite o cnpj sem pontuação"
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
             <i className="fas fa-search search-icon"></i>
+            <button onClick={()=>{window.location.reload()}} className='btnAtt'>atualizar</button>
             </div>
             <ul className='empresaUl'>
             {array
