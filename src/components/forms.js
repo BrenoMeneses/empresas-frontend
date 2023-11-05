@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 import InputMask from 'react-input-mask'
-import { cpf } from 'cpf-cnpj-validator'
+import { cnpj } from 'cpf-cnpj-validator'
 
 const Form= () => {
 
@@ -18,7 +18,7 @@ const Form= () => {
     function onSubmit(data){
 
         
-        if (cpf.isValid(data.cnpj.replace(/[^\d]+/g, ''))) {
+        if (cnpj.isValid(data.cnpj.replace(/[^\d]+/g, ''))) {
             fetch("http://localhost:8080/api", {
                 method: 'POST',
                 headers:  {
